@@ -16,7 +16,7 @@ const data = [
   { label: 'D', value: 22 }
 ]
 
-const selectedTheme = theme.setTheme('themeA')
-const selectedFontSize = theme.setFontSize(15)
+const selectedTheme = theme.setTheme('themeB')
+const selectedFontSize = theme.setFontSize(20)
 
 barGraph.createBarGraph(data, selectedTheme, selectedFontSize)

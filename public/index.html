@@ -10,10 +10,26 @@
 
 <body>
   <main>
-    <h1>Testing</h1>
+    <h1>Weather Forecast in Diagrams</h1>
+    <div class="navigationButtons">
+      <button>Temperature</button>
+      <button>Rain</button>
+    </div>
   </main>
 
   <div class="mainPage">
+    <div class="inputBox">
+      <div id="cityInput">
+        <label for="city">City:</label>
+        <input type="text">
+      </div>
+    
+      <div id="diagramInput">
+        <label for="diagram">Diagram:</label>
+        <!-- Make into options: Bar or Line -->
+        <input type="text">
+      </div>
+    </div>
     <div class="diagram">
       <h2>Bar Graph</h2>
       <svg id="barGraph" width="450" height="300" xmlns="http://www.w3.org/2000/svg" style="border: 2px, solid;"></svg>  
