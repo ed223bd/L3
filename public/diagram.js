@@ -10,8 +10,9 @@ const barGraph = new BarGraph('barGraph', 450, 300)
 
 async function getWeather() {
   const response = await fetch('/api/weather')
-  const data = await response.json()
-  console.log(data.message)
+  const JSONdata = await response.json()
+  const data = JSONdata.message
+  console.log(data)
 
   const validatedData = validator.validateData(data)
 

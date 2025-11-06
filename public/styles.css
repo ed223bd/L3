@@ -45,6 +45,15 @@ body {
   padding-bottom: 10px;
 }
 
+.btn {
+  border-radius: 15px;
+  background-color: rgb(196, 237, 126);
+  font-weight: 600;
+  width: fit-content;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
 svg {
   background-color: rgb(254, 248, 195);
 }
