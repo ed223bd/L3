@@ -1,6 +1,8 @@
 import express from 'express'
-import { weatherRouter } from './weatherRouter.js'
+import weatherRouter from './weatherRouter.js'
 
 export const router = express.Router()
 
-router.use('/', weatherRouter)
+router.use('/weather', weatherRouter)
+
+export default router
