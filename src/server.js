@@ -1,5 +1,5 @@
 import express from 'express'
-import { router } from './routes/weather.js'
+import router from './routes/weatherRouter.js'
 
 const app = express()
 // TODO: ändra senare till det som står i ev .env-fil
