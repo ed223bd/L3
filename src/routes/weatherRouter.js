@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
   const testData = await weatherService.dataToDiagram()
-  res.json(testData)
+  res.json({ message: testData })
 })
 
 export default router

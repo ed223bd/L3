@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +14,7 @@
     <h1>Weather Forecast in Diagrams</h1>
     <div class="navigationButtons">
       <button>Temperature</button>
-      <button>Rain</button>
+      <button>Humidity</button>
     </div>
   </main>
 
@@ -23,7 +24,7 @@
         <label for="city">City:</label>
         <input type="text">
       </div>
-    
+
       <div id="diagramInput">
         <label for="diagram">Diagram:</label>
         <!-- Make into options: Bar or Line -->
@@ -36,8 +37,13 @@
     </div>
     <div class="diagram">
       <h2>Bar Graph</h2>
-      <svg id="barGraph" width="450" height="300" xmlns="http://www.w3.org/2000/svg" style="border: 2px, solid;"></svg>  
+      <svg id="day1" width="450" height="300" xmlns="http://www.w3.org/2000/svg" style="border: 2px, solid;"></svg>
+      <svg id="day2" width="450" height="300" xmlns="http://www.w3.org/2000/svg" style="border: 2px, solid;"></svg>
+      <svg id="day3" width="450" height="300" xmlns="http://www.w3.org/2000/svg" style="border: 2px, solid;"></svg>
+      <svg id="day4" width="450" height="300" xmlns="http://www.w3.org/2000/svg" style="border: 2px, solid;"></svg>
+      <svg id="day5" width="450" height="300" xmlns="http://www.w3.org/2000/svg" style="border: 2px, solid;"></svg>
     </div>
   </div>
 </body>
+
 </html>

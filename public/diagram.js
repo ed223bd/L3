@@ -3,9 +3,9 @@ import { Validator, BarGraph, LineGraph, Theme } from '../module/index.js'
 const validator = new Validator()
 const theme = new Theme()
 
-const barGraph = new BarGraph('barGraph', 450, 300)
+const barGraph = new BarGraph('day1', 450, 300)
 // Skapa linegraph
- 
+
 // Validera
 
 async function getWeather() {
