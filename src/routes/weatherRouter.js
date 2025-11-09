@@ -1,11 +1,11 @@
 import express from 'express'
-import weatherService from '../services/weatherService.js'
+import weatherService from '../services/temperatureService.js'
 
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-  const testData = await weatherService.dataToDiagram()
-  res.json({ message: testData })
+  const data = await weatherService.getDataFromAPI()
+  res.json({ message: data })
 })
 
 export default router
