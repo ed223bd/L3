@@ -11,35 +11,52 @@ export default {
   //   return data
   // },
 
-  
   async getDataFromAPI() {
     const API_key = process.env.API_key
-    console.log(API_key)
     const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=Stockholm&appid=${API_key}&units=metric`)
     const weatherData = await response.json()
     // console.log(JSONdata)
 
-    const exactTemp = weatherData.list[0].main.temp
-    const temp = Math.round(exactTemp)
-    console.log(temp)
+    const days = []
+    weatherData.list.forEach(d => {
+      if ('dt_txt' in d) {
+        console.log(d.dt_txt)
+        const formattedDate = new Date(d.dt_txt)
+        const formattedDay = this.getDay(formattedDate)
+        const formattedTime = this.getTime(formattedDate)
 
-    const entry1 = weatherData.list[0].dt_txt
+        const exactTemp = d.main.temp
+        const temp = Math.round(exactTemp)
+        console.log(temp)
 
-    console.log(entry1)
+        const dayEntry = days.find(day => day.date === formattedDay)
+        if (!dayEntry) {
+          days.push({ date: formattedDay, data: [] })
+        }
+        dayEntry.data.push({ label: formattedTime, value: temp})
+      } else {
+        console.log('NO')
+      }
+    })
+    console.log(days)
 
-    const day1 = new Date(entry1)
-    const day = day1.toISOString().slice(0,10)
-    const time = day1.toTimeString().slice(0,8).slice(0,2)
+    return data
+  },
 
-    console.log(day)
-    console.log(time)
+  formatAPIResponse() {
 
-    const dataToday = [
-      { label: time, value: temp },
-      { label: time, value: temp }
-    ]
+  },
 
-    return dataToday
+  getDay(date) {
+    const day = date.toISOString().slice(0, 10)
+
+    return day
+  },
+
+  getTime(date) {
+    const time = date.toTimeString().slice(0, 8).slice(0, 2)
+
+    return time
   }
 }
 
