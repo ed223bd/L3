@@ -17,34 +17,35 @@ export default {
     const weatherData = await response.json()
     // console.log(JSONdata)
 
+    const days = this.formatAPIResponse(weatherData)
+
+    return days
+  },
+
+  formatAPIResponse(weatherData) {
     const days = []
     weatherData.list.forEach(d => {
       if ('dt_txt' in d) {
-        console.log(d.dt_txt)
         const formattedDate = new Date(d.dt_txt)
         const formattedDay = this.getDay(formattedDate)
         const formattedTime = this.getTime(formattedDate)
 
         const exactTemp = d.main.temp
         const temp = Math.round(exactTemp)
-        console.log(temp)
 
-        const dayEntry = days.find(day => day.date === formattedDay)
-        if (!dayEntry) {
+        let foundDay = days.find(day => day.date === formattedDay)
+        if (!foundDay) {
           days.push({ date: formattedDay, data: [] })
+          foundDay = days.find(day => day.date === formattedDay)
         }
-        dayEntry.data.push({ label: formattedTime, value: temp})
+        foundDay.data.push({ label: formattedTime, value: temp })
       } else {
         console.log('NO')
       }
     })
     console.log(days)
 
-    return data
-  },
-
-  formatAPIResponse() {
-
+    return days
   },
 
   getDay(date) {
