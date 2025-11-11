@@ -15,12 +15,13 @@ async function createDiagrams() {
     const dayObject = weatherData[i]
     const svgId = 'day' + (i + 1)
 
+    createSVGElement(svgId)
+
     const validatedData = validator.validateData(dayObject.data)
     const barGraph = new BarGraph(svgId, 450, 300)
 
     barGraph.createBarGraph(validatedData, selectedTheme, selectedFontSize)
   }
-
 }
 
 async function getWeather() {
@@ -31,16 +32,16 @@ async function getWeather() {
   return data
 }
 
-function createOneDiagram() {
+function createSVGElement(svgId) {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
 
+  svg.setAttribute('id', svgId)
+  svg.setAttribute('width', 450)
+  svg.setAttribute('height', 300)
+  svg.style.border = '2px solid black'
+
+  // Add svg element to html container
+  document.getElementById('diagram-container').appendChild(svg)
 }
 
-
-
-// getDataForOneDay() {
-
-// }
-
 createDiagrams()
-// getDataForOneDay()
-createOneDiagram()
