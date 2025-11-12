@@ -30,15 +30,15 @@ export default {
         const formattedDay = this.getDay(formattedDate)
         const formattedTime = this.getTime(formattedDate)
 
-        const exactTemp = d.main.temp
-        const temp = Math.round(exactTemp)
+        const humidity = d.main.humidity
+        const windSpeed = d.wind.speed
 
         let foundDay = days.find(day => day.date === formattedDay)
         if (!foundDay) {
           days.push({ date: formattedDay, data: [] })
           foundDay = days.find(day => day.date === formattedDay)
         }
-        foundDay.data.push({ label: formattedTime, value: temp })
+        foundDay.data.push({ label: formattedTime, humidity: humidity, windSpeed: windSpeed })
       } else {
         console.log('NO')
       }

@@ -1,5 +1,5 @@
 import express from 'express'
-import weatherService from '../services/temperatureService.js'
+import weatherService from '../services/weatherService.js'
 
 const router = express.Router()
 

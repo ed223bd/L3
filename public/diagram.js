@@ -17,7 +17,17 @@ async function createDiagrams() {
 
     createSVGElement(svgId)
 
-    const validatedData = validator.validateData(dayObject.data)
+    const humidityData = dayObject.data.map( dataEntry => ({
+      label: dataEntry.label,
+      value: dataEntry.humidity
+    }))
+
+    const windSpeedData = dayObject.data.map(dataEntry => ({
+      label: dataEntry.label,
+      value: dataEntry.windSpeed
+    }))
+
+    const validatedData = validator.validateData(humidityData)
     const barGraph = new BarGraph(svgId, 450, 300)
 
     barGraph.createBarGraph(validatedData, selectedTheme, selectedFontSize)
@@ -38,7 +48,8 @@ function createSVGElement(svgId) {
   svg.setAttribute('id', svgId)
   svg.setAttribute('width', 450)
   svg.setAttribute('height', 300)
-  svg.style.border = '2px solid black'
+  svg.style.borderRadius = '15px'
+  svg.style.border = '2px solid darkgreen'
 
   // Add svg element to html container
   document.getElementById('diagram-container').appendChild(svg)
