@@ -41,10 +41,6 @@ body {
   padding-bottom: 10px;
 }
 
-#diagramInput {
-  padding-bottom: 10px;
-}
-
 .btn {
   border-radius: 15px;
   background-color: rgb(196, 237, 126);
@@ -52,6 +48,27 @@ body {
   width: fit-content;
   padding: 10px;
   margin-bottom: 20px;
+}
+
+#diagram-container {
+  display: flex;
+  flex-direction: row;
+}
+
+#humidity-container {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  padding: 10px;
+  background-color: blue;
+}
+
+#windSpeed-container {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  padding: 10px;
+  background-color: rgb(225, 255, 0);
 }
 
 svg {

@@ -11,9 +11,9 @@ export default {
   //   return data
   // },
 
-  async getDataFromAPI() {
+  async getDataFromAPI(city) {
     const API_key = process.env.API_key
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=Stockholm&appid=${API_key}&units=metric`)
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_key}&units=metric`)
     const weatherData = await response.json()
     // console.log(JSONdata)
 

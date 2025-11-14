@@ -4,7 +4,8 @@ import weatherService from '../services/weatherService.js'
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-  const data = await weatherService.getDataFromAPI()
+  const city = req.query.city
+  const data = await weatherService.getDataFromAPI(city)
   res.json({ message: data })
 })
 

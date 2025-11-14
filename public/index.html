@@ -7,6 +7,7 @@
   <title>Document</title>
   <link rel="stylesheet" href="/styles.css">
   <script type="module" src="/diagram.js"></script>
+  <script type="module" src="eventListeners.js"></script>
 </head>
 
 <body>
@@ -22,14 +23,20 @@
     <div class="inputBox">
       <div id="cityInput">
         <label for="city">City:</label>
-        <input type="text">
+        <input id="city-input" type="text" placeholder="Enter city">
       </div>
-
       <div id="generateBtn">
-        <button class="btn">Generate Diagram</button>
+        <button id="generateBtn">Generate Diagram</button>
       </div>
     </div>
-    <div id="diagram-container"></div>
+    <section id="diagram-container">
+      <div id="humidity-container">
+        <h2>Humidity</h2>
+      </div>
+      <div id="windSpeed-container">
+        <h2>Wind Speed</h2>
+      </div>
+    </section>
   </div>
 </body>
 

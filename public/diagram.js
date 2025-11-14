@@ -1,58 +1,60 @@
 import { Validator, BarGraph, LineGraph, Theme } from '../module/index.js'
 
-const validator = new Validator()
-const theme = new Theme()
+export class DiagramGenerator {
+  constructor () {
+    this.validator = new Validator()
+    this.theme = new Theme()
 
-const selectedTheme = theme.setTheme('themeB')
-const selectedFontSize = theme.setFontSize(20)
+    this.selectedTheme = this.theme.setTheme('themeB')
+    this.selectedFontSize = this.theme.setFontSize(20)
+  }
 
-async function createDiagrams() {
+  async createDiagrams(city) {
 
-  const weatherData = await getWeather()
-  console.log(weatherData)
+    const weatherData = await this.getWeather(city)
+    console.log(weatherData)
 
-  for (let i = 0; i < weatherData.length && i < 5; i++) {
-    const dayObject = weatherData[i]
-    const svgId = 'day' + (i + 1)
+    for (let i = 0; i < weatherData.length && i <= 5; i++) {
+      const dayObject = weatherData[i]
+      const svgId = 'day' + (i + 1)
 
-    createSVGElement(svgId)
+      createSVGElement(svgId)
 
-    const humidityData = dayObject.data.map( dataEntry => ({
-      label: dataEntry.label,
-      value: dataEntry.humidity
-    }))
+      const humidityData = dayObject.data.map( dataEntry => ({
+        label: dataEntry.label,
+        value: dataEntry.humidity
+      }))
 
-    const windSpeedData = dayObject.data.map(dataEntry => ({
-      label: dataEntry.label,
-      value: dataEntry.windSpeed
-    }))
+      const windSpeedData = dayObject.data.map(dataEntry => ({
+        label: dataEntry.label,
+        value: dataEntry.windSpeed
+      }))
 
-    const validatedData = validator.validateData(humidityData)
-    const barGraph = new BarGraph(svgId, 450, 300)
+      const validatedData = validator.validateData(humidityData)
+      const barGraph = new BarGraph(svgId, 336, 224)
 
-    barGraph.createBarGraph(validatedData, selectedTheme, selectedFontSize)
+      barGraph.createBarGraph(validatedData, selectedTheme, selectedFontSize)
+    }
+  }
+
+  async function getWeather(city) {
+    const response = await fetch(`/api/weather?city=${city}`)
+    const JSONdata = await response.json()
+    const data = JSONdata.message
+
+    return data
+  }
+
+  function createSVGElement(svgId) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+
+    svg.setAttribute('id', svgId)
+    svg.setAttribute('width', 336)
+    svg.setAttribute('height', 224)
+    svg.style.borderRadius = '15px'
+    svg.style.border = '2px solid darkgreen'
+
+    // Add svg element to html container
+    document.getElementById('humidity-container').appendChild(svg)
   }
 }
-
-async function getWeather() {
-  const response = await fetch('/api/weather')
-  const JSONdata = await response.json()
-  const data = JSONdata.message
-
-  return data
-}
-
-function createSVGElement(svgId) {
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-
-  svg.setAttribute('id', svgId)
-  svg.setAttribute('width', 450)
-  svg.setAttribute('height', 300)
-  svg.style.borderRadius = '15px'
-  svg.style.border = '2px solid darkgreen'
-
-  // Add svg element to html container
-  document.getElementById('diagram-container').appendChild(svg)
-}
-
-createDiagrams()
