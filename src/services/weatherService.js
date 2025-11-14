@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-export default {
+export class WeatherService {
   // dataToDiagram() {
   //   const data = [
   //     { label: 'A', value: 2 },
@@ -11,18 +11,18 @@ export default {
   //   return data
   // },
 
-  async getDataFromAPI(city) {
-    const API_key = process.env.API_key
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_key}&units=metric`)
+  async getDataFromAPI (city) {
+    const API_Key = process.env.API_key
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_Key}&units=metric`)
     const weatherData = await response.json()
     // console.log(JSONdata)
 
     const days = this.formatAPIResponse(weatherData)
 
     return days
-  },
+  }
 
-  formatAPIResponse(weatherData) {
+  formatAPIResponse (weatherData) {
     const days = []
     weatherData.list.forEach(d => {
       if ('dt_txt' in d) {
@@ -40,24 +40,23 @@ export default {
         }
         foundDay.data.push({ label: formattedTime, humidity: humidity, windSpeed: windSpeed })
       } else {
-        console.log('NO')
+        console.log('Date not found')
       }
     })
     console.log(days)
 
     return days
-  },
+  }
 
-  getDay(date) {
+  getDay (date) {
     const day = date.toISOString().slice(0, 10)
 
     return day
-  },
+  }
 
-  getTime(date) {
+  getTime (date) {
     const time = date.toTimeString().slice(0, 8).slice(0, 2)
 
     return time
   }
 }
-

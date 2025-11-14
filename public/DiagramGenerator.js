@@ -1,4 +1,4 @@
-import { Validator, BarGraph, LineGraph, Theme } from '../module/index.js'
+import { Validator, BarGraph, Theme } from '../module/index.js'
 
 export class DiagramGenerator {
   constructor () {
@@ -9,8 +9,7 @@ export class DiagramGenerator {
     this.selectedFontSize = this.theme.setFontSize(20)
   }
 
-  async createDiagrams(city) {
-
+  async createDiagrams (city) {
     const weatherData = await this.getWeather(city)
     console.log(weatherData)
 
@@ -18,9 +17,9 @@ export class DiagramGenerator {
       const dayObject = weatherData[i]
       const svgId = 'day' + (i + 1)
 
-      createSVGElement(svgId)
+      this.createSVGElement(svgId)
 
-      const humidityData = dayObject.data.map( dataEntry => ({
+      const humidityData = dayObject.data.map(dataEntry => ({
         label: dataEntry.label,
         value: dataEntry.humidity
       }))
@@ -30,14 +29,14 @@ export class DiagramGenerator {
         value: dataEntry.windSpeed
       }))
 
-      const validatedData = validator.validateData(humidityData)
+      const validatedData = this.validator.validateData(humidityData)
       const barGraph = new BarGraph(svgId, 336, 224)
 
-      barGraph.createBarGraph(validatedData, selectedTheme, selectedFontSize)
+      barGraph.createBarGraph(validatedData, this.selectedTheme, this.selectedFontSize)
     }
   }
 
-  async function getWeather(city) {
+  async getWeather (city) {
     const response = await fetch(`/api/weather?city=${city}`)
     const JSONdata = await response.json()
     const data = JSONdata.message
@@ -45,7 +44,7 @@ export class DiagramGenerator {
     return data
   }
 
-  function createSVGElement(svgId) {
+  createSVGElement (svgId) {
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
 
     svg.setAttribute('id', svgId)
