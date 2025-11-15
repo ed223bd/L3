@@ -4,10 +4,10 @@ export class DiagramUI {
   constructor () {
     this.diagramGenerator = new DiagramGenerator()
 
-    this.addEventListener()
+    this.addEventListenertoButton()
   }
 
-  addEventListener () {
+  addEventListenertoButton () {
     document.getElementById('generateBtn').addEventListener('click', () => {
       const city = document.getElementById('city-input').value
 

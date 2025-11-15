@@ -7,13 +7,15 @@ main {
   width: 700px;
 }
 
-main button {
-  padding: 15px;
-  font-size: large;
+#generateBtn {
+  padding: 10px;
+  font-size: medium;
   border-radius: 15px;
   background-color: rgb(196, 237, 126);
-  font-weight: 600;
+  font-weight: 400;
   width: fit-content;
+    margin-bottom: 20px;
+
 }
 
 body {
@@ -31,6 +33,7 @@ body {
 }
 
 .inputBox {
+  font-size: large;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -39,15 +42,6 @@ body {
 
 #cityInput {
   padding-bottom: 10px;
-}
-
-.btn {
-  border-radius: 15px;
-  background-color: rgb(196, 237, 126);
-  font-weight: 600;
-  width: fit-content;
-  padding: 10px;
-  margin-bottom: 20px;
 }
 
 #diagram-container {
@@ -60,7 +54,7 @@ body {
   flex-direction: column;
   width: fit-content;
   padding: 10px;
-  background-color: blue;
+  background-color: rgb(126, 126, 255);
 }
 
 #windSpeed-container {
@@ -68,7 +62,7 @@ body {
   flex-direction: column;
   width: fit-content;
   padding: 10px;
-  background-color: rgb(225, 255, 0);
+  background-color: rgb(236, 250, 132);
 }
 
 svg {

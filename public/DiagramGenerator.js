@@ -15,24 +15,18 @@ export class DiagramGenerator {
 
     for (let i = 0; i < weatherData.length && i <= 5; i++) {
       const dayObject = weatherData[i]
-      const svgId = 'day' + (i + 1)
+      const svgId = 'humidityDay' + (i + 1)
 
       this.createSVGElement(svgId)
+      this.createDivPerDay(dayObject)
 
-      const humidityData = dayObject.data.map(dataEntry => ({
-        label: dataEntry.label,
-        value: dataEntry.humidity
-      }))
+      const humidityData = this.getHumidityData(dayObject)
+      const windSpeedData = this.getWindSpeedData(dayObject)
 
-      const windSpeedData = dayObject.data.map(dataEntry => ({
-        label: dataEntry.label,
-        value: dataEntry.windSpeed
-      }))
-
-      const validatedData = this.validator.validateData(humidityData)
       const barGraph = new BarGraph(svgId, 336, 224)
 
-      barGraph.createBarGraph(validatedData, this.selectedTheme, this.selectedFontSize)
+      this.createHumidityDiagram(humidityData, barGraph)
+      this.createWindSpeedDiagram(windSpeedData, barGraph)
     }
   }
 
@@ -42,6 +36,33 @@ export class DiagramGenerator {
     const data = JSONdata.message
 
     return data
+  }
+
+  getHumidityData (dayObject) {
+    const humidityData = dayObject.data.map(dataEntry => ({
+      label: dataEntry.label,
+      value: dataEntry.humidity
+    }))
+
+    return humidityData
+  }
+
+  getWindSpeedData (dayObject) {
+    const windSpeedData = dayObject.data.map(dataEntry => ({
+      label: dataEntry.label,
+      value: dataEntry.windSpeed
+    }))
+
+    return windSpeedData
+  }
+
+  createDivPerDay (dayObject) {
+    const div = document.createElement('div')
+    const date = dayObject.date
+    div.textContent = date
+
+    const container = document.getElementById('diagram-container')
+    container.appendChild(div)
   }
 
   createSVGElement (svgId) {
@@ -55,5 +76,17 @@ export class DiagramGenerator {
 
     // Add svg element to html container
     document.getElementById('humidity-container').appendChild(svg)
+  }
+
+  createHumidityDiagram (humidityData, barGraph) {
+    const validatedData = this.validator.validateData(humidityData)
+
+    barGraph.createBarGraph(validatedData, this.selectedTheme, this.selectedFontSize)
+  }
+
+  createWindSpeedDiagram (windSpeedData, barGraph) {
+    const validatedData = this.validator.validateData(windSpeedData)
+
+    barGraph.createBarGraph(validatedData, this.selectedTheme, this.selectedFontSize)
   }
 }
