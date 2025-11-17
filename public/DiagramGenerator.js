@@ -6,10 +6,12 @@ export class DiagramGenerator {
     this.theme = new Theme()
 
     this.selectedTheme = this.theme.setTheme('themeB')
-    this.selectedFontSize = this.theme.setFontSize(20)
+    this.selectedFontSize = this.theme.setFontSize(15)
   }
 
   async createDiagrams(city) {
+    this.clearData()
+
     const weatherData = await this.getWeather(city)
     console.log(weatherData)
 
@@ -19,6 +21,7 @@ export class DiagramGenerator {
       this.currentDay = i
 
       this.createDivPerDay(dayObject, dayId)
+      this.createRowInDay(dayId)
 
       const humidityData = this.getHumidityData(dayObject)
       const windSpeedData = this.getWindSpeedData(dayObject)
@@ -26,6 +29,12 @@ export class DiagramGenerator {
       this.createHumidityDiagram(humidityData, dayId)
       this.createWindSpeedDiagram(windSpeedData, dayId)
     }
+  }
+
+  clearData () {
+    const container = document.getElementById('diagram-container')
+
+    container.innerHTML = ''
   }
 
   async getWeather(city) {
@@ -59,10 +68,20 @@ export class DiagramGenerator {
     const date = dayObject.date
 
     day.setAttribute('id', dayId)
+    day.classList.add('day')
     day.textContent = date
 
     const container = document.getElementById('diagram-container')
     container.appendChild(day)
+  }
+
+  createRowInDay(dayId) {
+    const diagramRow = document.createElement('div')
+    const day = document.getElementById(dayId)
+
+    diagramRow.classList.add('diagram-row')
+
+    day.appendChild(diagramRow)
   }
 
   createSVGElement(svgId, dayId) {
@@ -75,7 +94,7 @@ export class DiagramGenerator {
     svg.style.border = '2px solid darkgreen'
 
     // Add svg element to html container
-    document.getElementById(dayId).appendChild(svg)
+    document.querySelector(`#${dayId} .diagram-row`).appendChild(svg)
   }
 
   createHumidityDiagram(humidityData, dayId) {

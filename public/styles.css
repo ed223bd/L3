@@ -14,8 +14,7 @@ main {
   background-color: rgb(196, 237, 126);
   font-weight: 400;
   width: fit-content;
-    margin-bottom: 20px;
-
+  margin-bottom: 20px;
 }
 
 body {
@@ -27,7 +26,7 @@ body {
 }
 
 .mainPage {
-  width: 700px;
+  width: 900px;
   padding: 10px;
   background-color: aliceblue;
 }
@@ -49,29 +48,20 @@ body {
   flex-direction: column;
 }
 
-#humidity-container {
+.day {
   display: flex;
   flex-direction: column;
-  width: fit-content;
+  width: 1200px;
   padding: 10px;
+  padding-bottom: 20px;
   background-color: rgb(126, 126, 255);
 }
 
-#windSpeed-container {
+.diagram-row {
   display: flex;
-  flex-direction: column;
-  width: fit-content;
-  padding: 10px;
-  background-color: rgb(236, 250, 132);
+  flex-direction: row;
 }
 
 svg {
   background-color: rgb(255, 255, 255);
-}
-
-.diagram {
-  padding: 10px;
-  background-color: rgb(255, 255, 255);
-  border-style: groove;
-  border-color: rgb(70, 203, 50);
 }

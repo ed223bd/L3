@@ -11,10 +11,20 @@ export class DiagramUI {
     document.getElementById('generateBtn').addEventListener('click', () => {
       const city = document.getElementById('city-input').value
 
-      if (!city) {
-        console.log('City not available')
-      }
-      this.diagramGenerator.createDiagrams(city)
+      this.#updateUIIfCityAvailable(city)
     })
+  }
+
+  #updateUIIfCityAvailable (city) {
+    try {
+      this.diagramGenerator.createDiagrams(city)
+    } catch (error) {
+      // Show message that city not available
+      this.#showMessage('City not available')
+    }
+  }
+
+  #showMessage () {
+    
   }
 }
