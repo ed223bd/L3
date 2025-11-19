@@ -9,19 +9,19 @@ export class WeatherParser {
       }
 
       const utcDate = new Date(entry.dt_txt)
-      const localDate = this.#convertToLocalTimezone(utcDate, timezoneDifferenceInMilliseconds)
-      const formattedDay = this.#getFormattedTime(localDate)
+      const localDate = new Date(this.#convertToLocalTimezone(utcDate, timezoneDifferenceInMilliseconds))
+      const formattedDay = this.#getFormattedDate(localDate)
       const formattedTime = this.#getFormattedTime(localDate)
 
-      const humidity = d.main.humidity
-      const windSpeed = d.wind.speed
+      const humidity = entry.main.humidity
+      const windSpeed = entry.wind.speed
 
       const foundDay = this.#findOrCreateDay(days, formattedDay)
 
-      foundDay.data.push({ 
-        label: formattedTime, 
-        humidity: humidity, 
-        windSpeed: windSpeed 
+      foundDay.data.push({
+        label: formattedTime,
+        humidity: humidity,
+        windSpeed: windSpeed
       })
     })
 
@@ -40,10 +40,11 @@ export class WeatherParser {
       days.push({ date: formattedDay, data: [] })
       foundDay = days.find(day => day.date === formattedDay)
     }
+    return foundDay
   }
 
-  #getFormattedTime(date) {
-    const date = date.toTimeString().slice(0, 2)
+  #getFormattedDate(localDate) {
+    const date = localDate.toISOString().slice(0, 10)
 
     return date
   }

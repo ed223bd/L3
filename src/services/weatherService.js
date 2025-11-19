@@ -1,6 +1,9 @@
 import fetch from 'node-fetch'
 
 export class WeatherService {
+  constructor(parser) {
+    this.parser = parser
+  }
   async getDataFromAPI(city) {
     const apiKey = process.env.API_key
     const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`)
