@@ -1,13 +1,13 @@
 import { DiagramGenerator } from './DiagramGenerator.js'
 
 export class DiagramUI {
-  constructor () {
+  constructor() {
     this.diagramGenerator = new DiagramGenerator()
 
     this.addEventListenertoButton()
   }
 
-  addEventListenertoButton () {
+  addEventListenertoButton() {
     document.getElementById('generateBtn').addEventListener('click', () => {
       const city = document.getElementById('city-input').value
 
@@ -15,16 +15,17 @@ export class DiagramUI {
     })
   }
 
-  #updateUIIfCityAvailable (city) {
+  async #updateUIIfCityAvailable(city) {
     try {
-      this.diagramGenerator.createDiagrams(city)
+      await this.diagramGenerator.createDiagrams(city)
     } catch (error) {
-      // Show message that city not available
-      this.#showMessage('City not available')
+      this.#showGenerationMessage('City not available')
     }
   }
 
-  #showMessage () {
-    
+  #showGenerationMessage(message) {
+    const messageContainer = document.getElementById('generateBtnText')
+
+    messageContainer.textContent = message
   }
 }

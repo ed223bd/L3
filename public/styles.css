@@ -8,7 +8,7 @@ main {
 }
 
 #generateBtn {
-  padding: 10px;
+  padding: 5px;
   font-size: medium;
   border-radius: 15px;
   background-color: rgb(196, 237, 126);
@@ -26,7 +26,7 @@ body {
 }
 
 .mainPage {
-  width: 900px;
+  width: 700px;
   padding: 10px;
   background-color: aliceblue;
 }
@@ -43,6 +43,13 @@ body {
   padding-bottom: 10px;
 }
 
+#generateBtnText {
+  height: 30px;
+  width: fit-content;
+  color: brown;
+  padding-bottom: 10px;
+}
+
 #diagram-container {
   display: flex;
   flex-direction: column;
@@ -51,13 +58,15 @@ body {
 .day {
   display: flex;
   flex-direction: column;
-  width: 1200px;
+  width: fit-content;
   padding: 10px;
+  margin-bottom: 10px;
   padding-bottom: 20px;
-  background-color: rgb(126, 126, 255);
+  background-color: rgb(224, 224, 255);
 }
 
 .diagram-row {
+  width: fit-content;
   display: flex;
   flex-direction: row;
 }

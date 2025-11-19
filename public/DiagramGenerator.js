@@ -6,22 +6,26 @@ export class DiagramGenerator {
     this.theme = new Theme()
 
     this.selectedTheme = this.theme.setTheme('themeB')
-    this.selectedFontSize = this.theme.setFontSize(15)
+    this.selectedFontSize = this.theme.setFontSize(12, 5)
   }
 
   async createDiagrams(city) {
     this.clearData()
+    this.clearMessage()
 
     const weatherData = await this.getWeather(city)
-    console.log(weatherData)
+    // console.log(weatherData)
 
     for (let i = 0; i < weatherData.length && i <= 5; i++) {
       const dayObject = weatherData[i]
       const dayId = 'day' + (i + 1)
       this.currentDay = i
 
-      this.createDivPerDay(dayObject, dayId)
-      this.createRowInDay(dayId)
+      const dayDiv = this.createDivPerDay(dayId)
+      const dateTitle = this.createDateTitle(dayObject)
+      const diagramRow = this.createRowForDiagrams()
+
+      this.appendElements(dayDiv, dateTitle, diagramRow)
 
       const humidityData = this.getHumidityData(dayObject)
       const windSpeedData = this.getWindSpeedData(dayObject)
@@ -31,10 +35,16 @@ export class DiagramGenerator {
     }
   }
 
-  clearData () {
+  clearData() {
     const container = document.getElementById('diagram-container')
 
     container.innerHTML = ''
+  }
+
+  clearMessage() {
+    const messageContainer = document.getElementById('generateBtnText')
+
+    messageContainer.innerHTML = ''
   }
 
   async getWeather(city) {
@@ -63,28 +73,50 @@ export class DiagramGenerator {
     return windSpeedData
   }
 
-  createDivPerDay(dayObject, dayId) {
+  createDivPerDay(dayId) {
     const day = document.createElement('div')
-    const date = dayObject.date
 
     day.setAttribute('id', dayId)
     day.classList.add('day')
-    day.textContent = date
 
-    const container = document.getElementById('diagram-container')
-    container.appendChild(day)
+    return day
   }
 
-  createRowInDay(dayId) {
+  createRowForDiagrams() {
     const diagramRow = document.createElement('div')
-    const day = document.getElementById(dayId)
 
     diagramRow.classList.add('diagram-row')
 
-    day.appendChild(diagramRow)
+    return diagramRow
   }
 
-  createSVGElement(svgId, dayId) {
+  createDateTitle(dayObject) {
+    const date = dayObject.date
+    const title = document.createElement('h2')
+
+    title.textContent = date
+
+    return title
+  }
+
+  createAndAppendDiagramBox(title, svg, dayId) {
+    const diagramBox = document.createElement('div')
+
+    diagramBox.classList.add('diagram-box')
+
+    const h3 = document.createElement('h3')
+
+    h3.textContent = title
+
+    diagramBox.appendChild(h3)
+    diagramBox.appendChild(svg)
+
+    const diagramRow = document.querySelector(`#${dayId} .diagram-row`)
+
+    diagramRow.appendChild(diagramBox)
+  }
+
+  createSVGElement(svgId) {
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
 
     svg.setAttribute('id', svgId)
@@ -93,29 +125,48 @@ export class DiagramGenerator {
     svg.style.borderRadius = '15px'
     svg.style.border = '2px solid darkgreen'
 
-    // Add svg element to html container
-    document.querySelector(`#${dayId} .diagram-row`).appendChild(svg)
+    return svg
+  }
+
+  appendElements(day, title, diagramRow) {
+    const container = document.querySelector('#diagram-container')
+
+    container.appendChild(day)
+    day.appendChild(title)
+    day.appendChild(diagramRow)
+  }
+
+  validateDiagramData(rawData) {
+    const data = this.validator.validateData(rawData)
+
+    return data
+  }
+
+  renderDiagram(svgId, validatedData) {
+    const barGraph = new BarGraph(svgId, 336, 224)
+    barGraph.createBarGraph(validatedData, this.selectedTheme, this.selectedFontSize)
+
   }
 
   createHumidityDiagram(humidityData, dayId) {
     const svgId = 'humidity' + (this.currentDay + 1)
-    const validatedData = this.validator.validateData(humidityData)
+    const title = 'Humidity (%)'
 
-    this.createSVGElement(svgId, dayId)
+    const svg = this.createSVGElement(svgId)
+    const validatedData = this.validateDiagramData(humidityData)
 
-    const humidityGraph = new BarGraph(svgId, 336, 224)
-
-    humidityGraph.createBarGraph(validatedData, this.selectedTheme, this.selectedFontSize)
+    this.createAndAppendDiagramBox(title, svg, dayId)
+    this.renderDiagram(svgId, validatedData)
   }
 
   createWindSpeedDiagram(windSpeedData, dayId) {
     const svgId = 'windSpeed' + (this.currentDay + 1)
-    const validatedData = this.validator.validateData(windSpeedData)
+    const title = 'Wind Speed (m/s)'
 
-    this.createSVGElement(svgId, dayId)
+    const svg = this.createSVGElement(svgId)
+    const validatedData = this.validateDiagramData(windSpeedData)
 
-    const windSpeedGraph = new BarGraph(svgId, 336, 224)
-
-    windSpeedGraph.createBarGraph(validatedData, this.selectedTheme, this.selectedFontSize)
+    this.createAndAppendDiagramBox(title, svg, dayId)
+    this.renderDiagram(svgId, validatedData)
   }
 }

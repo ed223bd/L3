@@ -11,18 +11,22 @@ export class WeatherService {
   //   return data
   // },
 
-  async getDataFromAPI (city) {
+  async getDataFromAPI(city) {
     const API_Key = process.env.API_key
     const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_Key}&units=metric`)
     const weatherData = await response.json()
     // console.log(JSONdata)
 
-    const days = this.formatAPIResponse(weatherData)
+    if (weatherData.cod === '200') {
+      const days = this.formatAPIResponse(weatherData)
 
-    return days
+      return days
+    } else {
+      throw new Error('City not available')
+    }
   }
 
-  formatAPIResponse (weatherData) {
+  formatAPIResponse(weatherData) {
     const days = []
     weatherData.list.forEach(d => {
       if ('dt_txt' in d) {
@@ -48,14 +52,14 @@ export class WeatherService {
     return days
   }
 
-  getDay (date) {
+  getDay(date) {
     const day = date.toISOString().slice(0, 10)
 
     return day
   }
 
-  getTime (date) {
-    const time = date.toTimeString().slice(0, 8).slice(0, 2)
+  getTime(date) {
+    const time = date.toTimeString().slice(0, 8).slice(0, 5)
 
     return time
   }
