@@ -15,7 +15,7 @@ export class DiagramUI {
 
   async #updateUIIfCityAvailable(city) {
     try {
-      await this.diagramGenerator.createDiagrams(city)
+      await this.generator.createDiagrams(city)
     } catch (error) {
       this.#showGenerationMessage('City not available')
     }

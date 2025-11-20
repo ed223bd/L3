@@ -14,7 +14,6 @@ export class DiagramGenerator {
     this.clearMessage()
 
     const weatherData = await this.getWeather(city)
-    // console.log(weatherData)
 
     for (let i = 0; i < weatherData.length && i <= 5; i++) {
       const dayObject = weatherData[i]
