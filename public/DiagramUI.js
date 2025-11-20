@@ -1,8 +1,6 @@
-import { DiagramGenerator } from './DiagramGenerator.js'
-
 export class DiagramUI {
-  constructor() {
-    this.diagramGenerator = new DiagramGenerator()
+  constructor(generator) {
+    this.generator = generator
 
     this.addEventListenertoButton()
   }

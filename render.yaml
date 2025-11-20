@@ -1,0 +1,10 @@
+services:
+  - name: DiagramWeatherApp
+    type: web
+    runtime: node
+    plan: free
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    branch: main
+    rootDir: ./
+    autoDeployTrigger: commit

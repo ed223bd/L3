@@ -1,3 +1,5 @@
 import { DiagramUI } from './DiagramUI.js'
+import { DiagramGenerator } from './DiagramGenerator.js'
 
-window.diagramUI = new DiagramUI()
+const diagramGenerator = new DiagramGenerator()
+window.diagramUI = new DiagramUI(diagramGenerator)
