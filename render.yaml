@@ -6,5 +6,4 @@ services:
     buildCommand: "npm install"
     startCommand: "npm start"
     branch: main
-    rootDir: .
     autoDeployTrigger: commit
