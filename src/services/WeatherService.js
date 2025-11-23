@@ -4,9 +4,14 @@ export class WeatherService {
   constructor(parser) {
     this.parser = parser
   }
+
   async getDataFromAPI(city) {
     const apiKey = process.env.API_key
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`)
+
+    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast` +
+      `?q=${city}&appid=${apiKey}&units=metric`
+
+    const response = await fetch(apiUrl)
     const weatherData = await response.json()
 
     if (weatherData.cod !== '200') {
@@ -14,6 +19,7 @@ export class WeatherService {
     }
 
     const formattedDataArray = this.parser.formatAPIResponse(weatherData)
+
     return formattedDataArray
   }
 }

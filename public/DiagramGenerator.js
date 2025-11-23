@@ -143,8 +143,11 @@ export class DiagramGenerator {
 
   renderDiagram(svgId, validatedData) {
     const barGraph = new BarGraph(svgId, 336, 224)
-    barGraph.createBarGraph(validatedData, this.selectedTheme, this.selectedFontSize)
-
+    barGraph.createBarGraph(
+      validatedData, 
+      this.selectedTheme, 
+      this.selectedFontSize
+    )
   }
 
   createHumidityDiagram(humidityData, dayId) {

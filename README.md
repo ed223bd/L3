@@ -7,7 +7,7 @@ This is an app that fetches a 5-day weather forecast from OpenWeatherMap API and
 
 The purpose of the app is to let users easily overview humidity and wind speed for their chosen city for the next 5 days. The diagrams will provide an easy way to read the weather data and give a visual aid in reading the prognosis.
 
-![Image of a forecast day](./img/diagrams.png)
+![Image of a forecast day](./docs/img/diagrams.png)
 
 
 ## Functional requirements
