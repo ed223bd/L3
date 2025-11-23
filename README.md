@@ -2,6 +2,9 @@
 
 This is an app that fetches a 5-day weather forecast from OpenWeatherMap API and displays humidity and wind speed as bargraphs for the upcoming days. The app allows the user to easily view weather forecasts for a city, based on its local time.
 
+The application is available [HERE](https://diagramweatherapp-production.up.railway.app/
+)
+
 
 ## Purpose
 
