@@ -18,11 +18,6 @@ The purpose of the app is to let users easily overview humidity and wind speed f
 - The user should be given an error message if the city is not available.
 
 
-## Non-functional requirements
-
-- The app should be deployed using Railway.
-- The UI should be easy to navigate.
-
 ## Installation guide
 
 Clone the repository:
